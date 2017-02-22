@@ -44,8 +44,8 @@ public class FingerprintActivity extends AppCompatActivity {
 
     //Working BSSIDs (for now only 4 APs are used for testing later it may be changed to a dynamic number)
     public static String BSSID_1 = "90:cd:b6:99:75:c9";
-    public static String BSSID_2 = "30:b5:c2:88:ae:9c";
-    public static String BSSID_3 = "e8:50:8b:66:1c:4d";
+    public static String BSSID_2 = "90:cd:b6:99:75:c9";
+    public static String BSSID_3 = "90:cd:b6:99:75:c9";
     public static String BSSID_4 = "90:cd:b6:99:75:c9";
 
 
