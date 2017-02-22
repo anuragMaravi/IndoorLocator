@@ -149,7 +149,7 @@ public class FingerprintActivity extends AppCompatActivity {
         }
         textViewAccessPoints.setText(ssids);
         sendData(referencePoint, rssi_1, rssi_2, rssi_3, rssi_4);
- //ToDO: Use a dialog with radio buttons for selecting the RP
+ //ToDO: Check whether the AP is selected or not
     }
 
 
