@@ -42,7 +42,8 @@ public class FingerprintActivity extends AppCompatActivity {
     public static String URL_REGISTER = "http://indoorlocator.pe.hu/fingerprint.php";
 
 
-    //Working BSSIDs (for now only 4 APs are used for testing later it may be changed to a dynamic number)
+    //Working BSSIDs (for now only 4 APs are
+    // used for testing later it may be changed to a dynamic number)
     public static String BSSID_1 = "90:cd:b6:99:75:c9";
     public static String BSSID_2 = "90:cd:b6:99:75:c9";
     public static String BSSID_3 = "90:cd:b6:99:75:c9";
@@ -57,6 +58,7 @@ public class FingerprintActivity extends AppCompatActivity {
 
     private Button buttonSendData, buttonReferencePoint;
     private ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +93,9 @@ public class FingerprintActivity extends AppCompatActivity {
                 try {
                     referencePointCount = Integer.parseInt(editTextRP.getText().toString().trim());
                     showRadioButtonDialog(referencePointCount);
-                }catch (NumberFormatException n){
-                    Toast.makeText(FingerprintActivity.this, "Please enter the Number of reference points (Integer)", Toast.LENGTH_SHORT).show();
+                } catch (NumberFormatException n) {
+                    Toast.makeText(FingerprintActivity.this, "Please enter the Number of reference " +
+                            "points (Integer)", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,7 +107,6 @@ public class FingerprintActivity extends AppCompatActivity {
                 scanWifi();
             }
         });
-
 
 
     }
@@ -130,33 +132,34 @@ public class FingerprintActivity extends AppCompatActivity {
             Log.i(TAG, "BSSID: " + scanResults.get(i).BSSID);
             Log.i(TAG, "RSSI: " + scanResults.get(i).level);
 
-            if(scanResults.get(i).BSSID.equals(BSSID_1)){
+            if (scanResults.get(i).BSSID.equals(BSSID_1)) {
                 rssi_1 = scanResults.get(i).level;
                 ssids += "AP1: " + scanResults.get(i).SSID + "\n";
             }
-            if(scanResults.get(i).BSSID.equals(BSSID_2)){
+            if (scanResults.get(i).BSSID.equals(BSSID_2)) {
                 rssi_2 = scanResults.get(i).level;
                 ssids += "AP2: " + scanResults.get(i).SSID + "\n";
             }
-            if(scanResults.get(i).BSSID.equals(BSSID_3)){
+            if (scanResults.get(i).BSSID.equals(BSSID_3)) {
                 rssi_3 = scanResults.get(i).level;
                 ssids += "AP3: " + scanResults.get(i).SSID + "\n";
             }
-            if(scanResults.get(i).BSSID.equals(BSSID_4)){
+            if (scanResults.get(i).BSSID.equals(BSSID_4)) {
                 rssi_4 = scanResults.get(i).level;
                 ssids += "AP4: " + scanResults.get(i).SSID + "\n";
             }
         }
         textViewAccessPoints.setText(ssids);
         sendData(referencePoint, rssi_1, rssi_2, rssi_3, rssi_4);
- //ToDO: Check whether the AP is selected or not
+        //ToDO: Check whether the AP is selected or not
     }
 
 
     /**
      * Sending Post Request to the database as fingerprint data
      */
-    private void sendData(final int referencePoint, final int rssi1, final int rssi2, final int rssi3, final int rssi4) {
+    private void sendData(final int referencePoint, final int rssi1, final int rssi2,
+                          final int rssi3, final int rssi4) {
         final RequestQueue queue = Volley.newRequestQueue(this);
         pDialog.setMessage("Sending Data...");
         showDialog();
@@ -202,14 +205,15 @@ public class FingerprintActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.radiobutton_dialog);
         TextView textViewCancel = (TextView) dialog.findViewById(R.id.textViewCancel);
 
-        List<String> stringList=new ArrayList<>();  // here is list
-        for(int i=0; i<referencePointCount; i++) {
+        List<String> stringList = new ArrayList<>();  // here is list
+        for (int i = 0; i < referencePointCount; i++) {
             stringList.add("Reference Point " + (i + 1));
         }
         RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
 
-        for(int i=0;i<stringList.size();i++){
-            RadioButton rb=new RadioButton(this);  // dynamically creating RadioButton and adding to RadioGroup.
+        for (int i = 0; i < stringList.size(); i++) {
+            RadioButton rb = new RadioButton(this);
+            // dynamically creating RadioButton and adding to RadioGroup.
             rb.setText(stringList.get(i));
             rg.addView(rb);
         }
@@ -222,7 +226,7 @@ public class FingerprintActivity extends AppCompatActivity {
                 for (int x = 0; x < childCount; x++) {
                     RadioButton btn = (RadioButton) group.getChildAt(x);
                     if (btn.getId() == checkedId) {
-                        Log.e("selected RadioButton->",btn.getText().toString());
+                        Log.e("selected RadioButton->", btn.getText().toString());
                         referencePoint = Integer.parseInt(String.valueOf(x + 1));
                         textViewCurrentRP.setText(String.valueOf(x + 1));
                         dialog.dismiss();
